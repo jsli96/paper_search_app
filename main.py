@@ -109,44 +109,89 @@ def main():
             try:
                 f = open("uist_list.txt", "r")
             except (Exception,):
-                print("UIST list not found, please update venue list.")
-                break
+                sys.exit("UIST list not found, please update venue list.")
             uist_dataframe = pd.DataFrame(columns=['Venue', 'Title', 'Abstract', 'DOI'])
             for lines in f:
                 if "Adjunct" not in lines:
-                    print(lines)
+                    print("Lines read in txt file: ", lines)  # This line is for testing purpose
+                    paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
+                    print("Paper venue name: ", paper_venue)  # This line is for testing purpose
+                    year_str = paper_venue[(paper_venue.find("'")):(paper_venue.find(":"))][1:]
+                    print("Years: ", year_str)  # This line is for testing purpose
+                    try:
+                        year = int(year_str)
+                    except (Exception,):
+                        sys.exit("Can Not locate venue year number, check program code.")
                     url = lines.split('"')[1]
-                    url = "https://dl.acm.org" + url + "?tocHeading=heading"
-                    i = 1
-                    while i < 30:
-                        str_i = str(i)
-                        data_url = url + str_i
-                        print(data_url)
+                    if year in range(1, 50, 1):  # Check the year if that is from 2001 to present (2050)
+                        url = "https://dl.acm.org" + url + "?tocHeading=heading"
+                        i = 1  # Section number
+                        while i < 30:  # Section number less than 30.
+                            str_i = str(i)
+                            data_url = url + str_i
+                            print(data_url)
+                            venue_yearly = random_useragent(data_url)
+                            soup_venue_yearly = bs(venue_yearly, 'lxml')
+                            paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
+                            # print(paper_list_yearly)
+                            for paper_item in paper_list_yearly:
+                                # print(paper_item)
+                                # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
+                                paper_title = str(paper_item).split(">")[2][:-3]
+                                paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
+                                paper_html = random_useragent(paper_doi)
+                                soup_paper_html = bs(paper_html, 'lxml')
+                                paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
+                                if paper_abstract_raw == []:
+                                    paper_abstract = "No abstract available for this paper."
+                                else:
+                                    paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
+                                print("========Got Paper=========")
+                                print(paper_venue)
+                                print(paper_title)
+                                print(paper_doi)
+                                print(paper_abstract)
+                                print("========Paper End=========")
+                                paper_dict = {"Venue": paper_venue, "Title": paper_title, "Abstract": paper_abstract, "DOI": paper_doi}
+                                uist_dataframe.loc[len(uist_dataframe)] = paper_dict
+                            if paper_list_yearly != []:
+                                i = i + 1
+                                break  # This line is for testing purpose
+                            else:
+                                print("All papers has been catch in this year UIST")
+                                break
+                        break  # This line is for testing purpose
+                    else:
+                        data_url = "https://dl.acm.org" + url
+                        print(data_url)  # This line is for testing purpose
                         venue_yearly = random_useragent(data_url)
                         soup_venue_yearly = bs(venue_yearly, 'lxml')
                         paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
-                        print(paper_list_yearly)
+                        # print(paper_list_yearly)
                         for paper_item in paper_list_yearly:
-                            print(paper_item)
-                            paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
+                            # print(paper_item)
+                            # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
                             paper_title = str(paper_item).split(">")[2][:-3]
                             paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
                             paper_html = random_useragent(paper_doi)
                             soup_paper_html = bs(paper_html, 'lxml')
                             paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
-                            paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
+                            if paper_abstract_raw == []:
+                                paper_abstract = "No abstract available for this paper."
+                            else:
+                                paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
+                            print("========Got Paper=========")
                             print(paper_venue)
                             print(paper_title)
                             print(paper_doi)
                             print(paper_abstract)
+                            print("========Paper End=========")
                             paper_dict = {"Venue": paper_venue, "Title": paper_title, "Abstract": paper_abstract, "DOI": paper_doi}
                             uist_dataframe.loc[len(uist_dataframe)] = paper_dict
-                        if paper_list_yearly != []:
-                            i = i + 1
-                            break
-                        else:
-                            break
-                    break
+                        print("All papers has been catch in this year UIST")
+                        # break  # This line is for testing purpose
+                else:
+                    pass
             uist_dataframe.to_csv('uist_paper_data.csv', index=False)
 
 
