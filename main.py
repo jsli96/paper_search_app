@@ -137,7 +137,7 @@ def main():
                             for paper_item in paper_list_yearly:
                                 # print(paper_item)
                                 # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
-                                paper_title = str(paper_item).split(">")[2][:-3]
+                                paper_title = str(paper_item).split('">')[2][:-9]
                                 paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
                                 paper_html = random_useragent(paper_doi)
                                 soup_paper_html = bs(paper_html, 'lxml')
@@ -171,8 +171,8 @@ def main():
                         for paper_item in paper_list_yearly:
                             # print(paper_item)
                             # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
-                            paper_title = str(paper_item).split(">")[2][:-3]
-                            paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
+                            paper_title = str(paper_item).split('">')[2][:-9]
+                            paper_doi = "https://dl.acm.org" + str(paper_item).split('>')[1][9:][:-1]
                             paper_html = random_useragent(paper_doi)
                             soup_paper_html = bs(paper_html, 'lxml')
                             paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
@@ -188,8 +188,9 @@ def main():
                             print("========Paper End=========")
                             paper_dict = {"Venue": paper_venue, "Title": paper_title, "Abstract": paper_abstract, "DOI": paper_doi}
                             uist_dataframe.loc[len(uist_dataframe)] = paper_dict
+                            # break  # This line is for testing purpose
                         print("All papers has been catch in this year UIST")
-                        # break  # This line is for testing purpose
+                        break  # This line is for testing purpose
                 else:
                     pass
             uist_dataframe.to_csv('uist_paper_data.csv', index=False)
