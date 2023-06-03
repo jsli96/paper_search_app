@@ -1,5 +1,1 @@
-
-<a href="/doi/proceedings/10.1145/3526113">UIST '22: Proceedings of the 35th Annual ACM Symposium on User Interface Software and Technology</a>
-<a href="/doi/proceedings/10.1145/3332167">UIST '19 Adjunct: Adjunct Proceedings of the 32nd Annual ACM Symposium on User Interface Software and Technology</a>
-<a href="/doi/proceedings/10.1145/263407">UIST '97: Proceedings of the 10th annual ACM symposium on User interface software and technology</a>
 <a href="/doi/proceedings/10.1145/237091">UIST '96: Proceedings of the 9th annual ACM symposium on User interface software and technology</a>

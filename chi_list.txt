@@ -16,6 +16,7 @@
 <a href="/doi/proceedings/10.1145/2858036">CHI '16: Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="beliv" href="/doi/proceedings/10.1145/2993901">BELIV '16</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/2851581">CHI EA '16</a>
+<a class="conf-link" data-code="hcik" href="/doi/proceedings/10.5555/2903626">HCIK '16</a>
 <a class="conf-link" data-code="seachi" href="/doi/proceedings/10.1145/2898365">SEACHI 2016</a>
 <a href="/doi/proceedings/10.1145/2702123">CHI '15: Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="asean-chi" href="/doi/proceedings/10.1145/2776888">ASEAN CHI Symposium'15</a>
@@ -24,6 +25,7 @@
 <a class="conf-link" data-code="beliv" href="/doi/proceedings/10.1145/2669557">BELIV '14</a>
 <a class="conf-link" data-code="cabs" href="/doi/proceedings/10.1145/2631488">CABS '14</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/2559206">CHI EA '14</a>
+<a class="conf-link" data-code="hcik" href="/doi/proceedings/10.5555/2729485">HCIK '15</a>
 <a href="/doi/proceedings/10.1145/2470654">CHI '13: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="apchi" href="/doi/proceedings/10.1145/2525194">APCHI '13</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/2468356">CHI EA '13</a>
@@ -37,6 +39,7 @@
 <a href="/doi/proceedings/10.1145/1753326">CHI '10: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="beliv" href="/doi/proceedings/10.1145/2110192">BELIV '10</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/1753846">CHI EA '10</a>
+<a class="conf-link" data-code="innovdesign" href="/doi/proceedings/10.5555/1854969">DESIRE '10</a>
 <a href="/doi/proceedings/10.1145/1518701">CHI '09: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/1520340">CHI EA '09</a>
 <a href="/doi/proceedings/10.1145/1357054">CHI '08: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
@@ -63,11 +66,13 @@
 <a href="/doi/proceedings/10.1145/302979">CHI '99: Proceedings of the SIGCHI conference on Human Factors in Computing Systems</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/632716">CHI EA '99</a>
 <a href="/doi/proceedings/10.1145/286498">CHI '98: CHI 98 Conference Summary on Human Factors in Computing Systems</a>
+<a href="/doi/proceedings/10.5555/274644">CHI '98: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/258549">CHI '97: Proceedings of the ACM SIGCHI Conference on Human factors in computing systems</a>
 <a class="conf-link" data-code="chi-ea" href="/doi/proceedings/10.1145/1120212">CHI EA '97</a>
 <a href="/doi/proceedings/10.1145/257089">CHI '96: Conference Companion on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/238386">CHI '96: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/223355">CHI '95: Conference Companion on Human Factors in Computing Systems</a>
+<a href="/doi/proceedings/10.5555/223904">CHI '95: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/259963">CHI '94: Conference Companion on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/191666">CHI '94: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</a>
 <a href="/doi/proceedings/10.1145/169059">CHI '93: Proceedings of the INTERACT '93 and CHI '93 Conference on Human Factors in Computing Systems</a>
