@@ -1,13 +1,5 @@
-<a href="/doi/proceedings/10.1145/354401">UIST '00: Proceedings of the 13th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/320719">UIST '99: Proceedings of the 12th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/288392">UIST '98: Proceedings of the 11th annual ACM symposium on User interface software and technology</a>
+
+<a href="/doi/proceedings/10.1145/3526113">UIST '22: Proceedings of the 35th Annual ACM Symposium on User Interface Software and Technology</a>
+<a href="/doi/proceedings/10.1145/3332167">UIST '19 Adjunct: Adjunct Proceedings of the 32nd Annual ACM Symposium on User Interface Software and Technology</a>
 <a href="/doi/proceedings/10.1145/263407">UIST '97: Proceedings of the 10th annual ACM symposium on User interface software and technology</a>
 <a href="/doi/proceedings/10.1145/237091">UIST '96: Proceedings of the 9th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/215585">UIST '95: Proceedings of the 8th annual ACM symposium on User interface and software technology</a>
-<a href="/doi/proceedings/10.1145/192426">UIST '94: Proceedings of the 7th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/168642">UIST '93: Proceedings of the 6th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/142621">UIST '92: Proceedings of the 5th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/120782">UIST '91: Proceedings of the 4th annual ACM symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/97924">UIST '90: Proceedings of the 3rd annual ACM SIGGRAPH symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/73660">UIST '89: Proceedings of the 2nd annual ACM SIGGRAPH symposium on User interface software and technology</a>
-<a href="/doi/proceedings/10.1145/62402">UIST '88: Proceedings of the 1st annual ACM SIGGRAPH symposium on User Interface Software</a>

@@ -22,7 +22,7 @@ def parse_args():
         "--v_n",
         "--venue_name",
         type=str,
-        default=["CHI"],
+        default=["UIST"],
         nargs="+",
         choices=["CHI", "ASSETS", "UIST", "IMWUT", "TEI", "IDC", "DIS", "CSCW"],
         # required=True,
@@ -112,8 +112,8 @@ def main():
                 sys.exit("UIST list not found, please update venue list.")
             uist_dataframe = pd.DataFrame(columns=['Venue', 'Title', 'Abstract', 'DOI'])
             for lines in f:
-                if "Adjunct" not in lines:
-                    print("Lines read in txt file: ", lines)  # This line is for testing purpose
+                print("Lines read in txt file: ", lines)  # This line is for testing purpose
+                if "Adjunct" not in lines and lines != "\n":
                     paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
                     print("Paper venue name: ", paper_venue)  # This line is for testing purpose
                     year_str = paper_venue[(paper_venue.find("'")):(paper_venue.find(":"))][1:]
@@ -121,6 +121,7 @@ def main():
                     try:
                         year = int(year_str)
                     except (Exception,):
+                        uist_dataframe.to_csv('uist_paper_data.csv', index=False)
                         sys.exit("Can Not locate venue year number, check program code.")
                     url = lines.split('"')[1]
                     if year in range(1, 50, 1):  # Check the year if that is from 2001 to present (2050)
@@ -156,11 +157,11 @@ def main():
                                 uist_dataframe.loc[len(uist_dataframe)] = paper_dict
                             if paper_list_yearly != []:
                                 i = i + 1
-                                break  # This line is for testing purpose
+                                # break  # This line is for testing purpose
                             else:
                                 print("All papers has been catch in this year UIST")
                                 break
-                        break  # This line is for testing purpose
+                        # break  # This line is for testing purpose
                     else:
                         data_url = "https://dl.acm.org" + url
                         print(data_url)  # This line is for testing purpose
@@ -190,7 +191,7 @@ def main():
                             uist_dataframe.loc[len(uist_dataframe)] = paper_dict
                             # break  # This line is for testing purpose
                         print("All papers has been catch in this year UIST")
-                        break  # This line is for testing purpose
+                        # break  # This line is for testing purpose
                 else:
                     pass
             uist_dataframe.to_csv('uist_paper_data.csv', index=False)
