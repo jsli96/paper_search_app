@@ -98,6 +98,17 @@ def random_useragent(url):
     return http
 
 
+def save_paper_to_dict(venue, doi, title, abstract):
+    print("========Got Paper=========")
+    print(venue)
+    print(title)
+    print(doi)
+    print(abstract)
+    print("========Paper End=========")
+    dict_back = {"Venue": venue, "Title": title, "Abstract": abstract, "DOI": doi}
+    return dict_back
+
+
 def main():
     args = parse_args()
     print("Venue: ", args.v_n)
@@ -130,7 +141,7 @@ def main():
                         while i < 30:  # Section number less than 30.
                             str_i = str(i)
                             data_url = url + str_i
-                            print(data_url)
+                            print(data_url)  # This line is for testing purpose
                             venue_yearly = random_useragent(data_url)
                             soup_venue_yearly = bs(venue_yearly, 'lxml')
                             paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
@@ -143,19 +154,13 @@ def main():
                                 paper_html = random_useragent(paper_doi)
                                 soup_paper_html = bs(paper_html, 'lxml')
                                 paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
-                                if paper_abstract_raw == []:
+                                if not paper_abstract_raw:
                                     paper_abstract = "No abstract available for this paper."
                                 else:
                                     paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
-                                print("========Got Paper=========")
-                                print(paper_venue)
-                                print(paper_title)
-                                print(paper_doi)
-                                print(paper_abstract)
-                                print("========Paper End=========")
-                                paper_dict = {"Venue": paper_venue, "Title": paper_title, "Abstract": paper_abstract, "DOI": paper_doi}
+                                paper_dict = save_paper_to_dict(paper_venue,paper_doi,paper_title,paper_abstract)
                                 uist_dataframe.loc[len(uist_dataframe)] = paper_dict
-                            if paper_list_yearly != []:
+                            if paper_list_yearly:
                                 i = i + 1
                                 # break  # This line is for testing purpose
                             else:
@@ -177,17 +182,11 @@ def main():
                             paper_html = random_useragent(paper_doi)
                             soup_paper_html = bs(paper_html, 'lxml')
                             paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
-                            if paper_abstract_raw == []:
+                            if not paper_abstract_raw:
                                 paper_abstract = "No abstract available for this paper."
                             else:
                                 paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
-                            print("========Got Paper=========")
-                            print(paper_venue)
-                            print(paper_title)
-                            print(paper_doi)
-                            print(paper_abstract)
-                            print("========Paper End=========")
-                            paper_dict = {"Venue": paper_venue, "Title": paper_title, "Abstract": paper_abstract, "DOI": paper_doi}
+                            paper_dict = save_paper_to_dict(paper_venue,paper_doi,paper_title,paper_abstract)
                             uist_dataframe.loc[len(uist_dataframe)] = paper_dict
                             # break  # This line is for testing purpose
                         print("All papers has been catch in this year UIST")
