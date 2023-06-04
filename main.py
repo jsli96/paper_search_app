@@ -9,7 +9,6 @@ from random import choice
 from bs4 import BeautifulSoup as bs
 
 
-
 def parse_args():
     parser = argparse.ArgumentParser(description="Search articles based on keywords")
     parser.add_argument(
@@ -22,7 +21,7 @@ def parse_args():
         "--v_n",
         "--venue_name",
         type=str,
-        default=["CHI"],
+        default=["UIST"],
         nargs="+",
         choices=["CHI", "ASSETS", "UIST", "IMWUT", "TEI", "IDC", "DIS", "CSCW"],
         # required=True,
@@ -102,6 +101,20 @@ def save_paper_to_dict(venue, doi, title, abstract):
     return dict_back
 
 
+def find_paper_detail(paper_venue, paper_item):
+    paper_title = str(paper_item).split('">')[2][:-9]
+    paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
+    paper_html = random_useragent(paper_doi)
+    soup_paper_html = bs(paper_html, 'lxml')
+    paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
+    if not paper_abstract_raw:
+        paper_abstract = "No abstract available for this paper."
+    else:
+        paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
+    paper_dict = save_paper_to_dict(paper_venue, paper_doi, paper_title, paper_abstract)
+    return paper_dict
+
+
 def get_uist_paper():
     try:
         f = open("uist_list.txt", "r")
@@ -121,7 +134,7 @@ def get_uist_paper():
                 uist_dataframe.to_csv('uist_paper_data.csv', index=False)
                 sys.exit("Can Not locate venue year number, check program code.")
             url = lines.split('"')[1]
-            if year in range(1, 50, 1):  # Check the year if that is from 2001 to present (2050)
+            if year in range(1, 50, 1):  # Check the year if that is from 2001 to present (2050),
                 url = "https://dl.acm.org" + url + "?tocHeading=heading"
                 i = 1  # Section number
                 while i < 30:  # Section number less than 30.
@@ -133,19 +146,7 @@ def get_uist_paper():
                     paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
                     # print(paper_list_yearly)
                     for paper_item in paper_list_yearly:
-                        # print(paper_item)
-                        # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
-                        paper_title = str(paper_item).split('">')[2][:-9]
-                        paper_doi = "https://dl.acm.org" + str(paper_item).split(">")[1][9:][:-1]
-                        paper_html = random_useragent(paper_doi)
-                        soup_paper_html = bs(paper_html, 'lxml')
-                        paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
-                        if not paper_abstract_raw:
-                            paper_abstract = "No abstract available for this paper."
-                        else:
-                            paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
-                        paper_dict = save_paper_to_dict(paper_venue, paper_doi, paper_title, paper_abstract)
-                        uist_dataframe.loc[len(uist_dataframe)] = paper_dict
+                        uist_dataframe.loc[len(uist_dataframe)] = find_paper_detail(paper_venue, paper_item)
                     if paper_list_yearly:
                         i = i + 1
                         # break  # This line is for testing purpose
@@ -155,25 +156,14 @@ def get_uist_paper():
                 # break  # This line is for testing purpose
             else:
                 data_url = "https://dl.acm.org" + url
-                print(data_url)  # This line is for testing purpose
+                # print(data_url)  # This line is for testing purpose
                 venue_yearly = random_useragent(data_url)
                 soup_venue_yearly = bs(venue_yearly, 'lxml')
                 paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
                 # print(paper_list_yearly)
                 for paper_item in paper_list_yearly:
                     # print(paper_item)
-                    # paper_venue = lines[(lines.find(">UIST")):(lines.find("</a>"))][1:]
-                    paper_title = str(paper_item).split('">')[2][:-9]
-                    paper_doi = "https://dl.acm.org" + str(paper_item).split('>')[1][9:][:-1]
-                    paper_html = random_useragent(paper_doi)
-                    soup_paper_html = bs(paper_html, 'lxml')
-                    paper_abstract_raw = soup_paper_html.find_all("div", class_="abstractSection abstractInFull")
-                    if not paper_abstract_raw:
-                        paper_abstract = "No abstract available for this paper."
-                    else:
-                        paper_abstract = str(paper_abstract_raw[0]).split("p>")[1][:-2]
-                    paper_dict = save_paper_to_dict(paper_venue, paper_doi, paper_title, paper_abstract)
-                    uist_dataframe.loc[len(uist_dataframe)] = paper_dict
+                    uist_dataframe.loc[len(uist_dataframe)] = find_paper_detail(paper_venue, paper_item)
                     # break  # This line is for testing purpose
                 print("All papers has been catch in this year UIST")
                 # break  # This line is for testing purpose
@@ -192,16 +182,52 @@ def get_chi_paper():
         # print("Lines read in txt file: ", lines)  # This line is for testing purpose
         if '<a href="/doi/proceedings' and 'Proceedings of the' in lines:
             paper_venue = lines[(lines.find(">CHI")):(lines.find("</a>"))][1:]
-            print("Paper venue name: ", paper_venue)  # This line is for testing purpose
             year_str = paper_venue[(paper_venue.find("'")):(paper_venue.find(":"))][1:]
-            print("Years: ", year_str)  # This line is for testing purpose
+            # print("Paper venue name: ", paper_venue)  # This line is for testing purpose
+            # print("Years: ", year_str)  # This line is for testing purpose
             try:
                 year = int(year_str)
             except (Exception,):
                 chi_dataframe.to_csv('chi_paper_data.csv', index=False)
                 sys.exit("Can Not locate venue year number, check program code.")
             url = lines.split('"')[1]
-            print(url)  # This line is for testing purpose
+            # print(url)  # This line is for testing purpose
+            if year in range(2, 50, 1):  # Check the year if that is from 2001 to present (2050)
+                url = "https://dl.acm.org" + url + "?tocHeading=heading"
+                i = 1  # Section number
+                while i < 99:  # Section number less than 99.
+                    str_i = str(i)
+                    data_url = url + str_i
+                    # print(data_url)  # This line is for testing purpose
+                    venue_yearly = random_useragent(data_url)
+                    soup_venue_yearly = bs(venue_yearly, 'lxml')
+                    paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
+                    # print(paper_list_yearly)
+                    for paper_item in paper_list_yearly:
+                        chi_dataframe.loc[len(chi_dataframe)] = find_paper_detail(paper_venue, paper_item)
+                    if paper_list_yearly:
+                        i = i + 1
+                        # break  # This line is for testing purpose
+                    else:
+                        print("All papers has been catch in this year CHI")
+                        break
+                # break  # This line is for testing purpose
+            else:
+                data_url = "https://dl.acm.org" + url
+                # print(data_url)  # This line is for testing purpose
+                venue_yearly = random_useragent(data_url)
+                soup_venue_yearly = bs(venue_yearly, 'lxml')
+                paper_list_yearly = soup_venue_yearly.find_all("h5", class_="issue-item__title")
+                # print(paper_list_yearly)
+                for paper_item in paper_list_yearly:
+                    chi_dataframe.loc[len(chi_dataframe)] = find_paper_detail(paper_venue, paper_item)
+                    # break  # This line is for testing purpose
+                print("All papers has been catch in this year CHI")
+                # break  # This line is for testing purpose
+        else:
+            pass
+    print("Save data to file.")
+    chi_dataframe.to_csv('chi_paper_data.csv', index=False)
 
 
 def get_assets_paper():
