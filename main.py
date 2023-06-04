@@ -252,7 +252,7 @@ def main():
         elif name == "ASSETS":
             get_assets_paper()
         else:
-            pass
+            print("Venue name not found, please check venue list.")
     print("======================== Program ends ========================")
 
 
@@ -260,4 +260,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
